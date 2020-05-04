@@ -3,25 +3,22 @@
 // the base class Being ('істота');
 function Being(name,  age) {
   this.name = name;
-  this. age = age;
-  
+  this. age = age;  
 }
 
 // it's additional class for gender
 function Sex(gender) {
-  this.gender = gender;
-  
+  this.gender = gender; 
 }
 
 // class NaVi extends Being and Sex
-function NaVi(name, skin, age, language, gender, image) {
+function NaVi(name, skin, age, language, gender) {
   Being.call(this, name, age);
   Sex.call(this, gender);
   this.skin = skin;
   this.tail = true;
   this.language = language;
-  this.image = `./img/${this.name}.jpeg`;
-  
+  this.image = `./img/${this.name}.jpeg`;  
 }
 
 
@@ -31,58 +28,46 @@ function Human(name, lastName, age, language, gender) {
   Sex.call(this, gender);
   this.lastName = lastName;
   this.language = language;
-  this.image = `./img/${this.name}.jpeg`;
-  
+  this.image = `./img/${this.name}.jpeg`; 
 }
 
 // class HumanNavi extends NaVi and Human
 function HumanNaVi(name, lastName, age, language, skin, gender) {
   NaVi.apply(this, [, skin]);
-  Human.call(this, name, lastName, age, language, gender);
-  
+  Human.call(this, name, lastName, age, language, gender); 
 }
 
 
 // Using: 
+// make some list of heroes
 let mihel = new Human('Trudy', 'Chackon', 25, 'english', 'female');
 let zosya = new NaVi('Neitiry', 'blue', 18, "na'vi", 'female');
 let pupkin = new HumanNaVi('Vasya', 'Pupkin', 25, ['english', "na'vi"], 'lightblue', 'male');
 let siguri = new HumanNaVi('Grase', 'Ogustin', 34, ['english', "na'vi"], 'blue','female');
-// console.log('mihel: ', mihel);
-// console.log('pupkin: ', pupkin);
-// console.log('zosya: ', zosya);
-// console.log('siguri: ', siguri);
+let persons = [mihel, zosya, siguri, pupkin];
 
-
+// array of their features
 let order = ['name', 'lastName', 'age', 'gender', 'language', 'skin', 'tail'];
 
 function handleShow(event) {
-
   let btn = event.target.closest('button');  
-  // btn.innerHTML = '';
+  let btnWidth = btn.clientWidth ;
   let sh = document.createElement('div');
+  sh.style.width = btnWidth + 'px';
   let ul = document.createElement('ul');
   let pers, img;
-
   for (let person of persons ) {
-    if (person.name === btn.id) { 
-     
+    if (person.name === btn.id) {  
       img = btn.previousSibling;
-      pers = person.constructor.name;
-   
+      pers = person.constructor.name;  
         for (let key of order) {
-        // console.log(Object.keys(person));
           if(!Object.keys(person).includes(key)) continue;
-
           let camelKey = key.charAt(0).toUpperCase() + key.slice(1);
           let li = document.createElement('li');
           li.innerHTML=`${camelKey}: ${person[key]}`;
           li.classList.add('li');
           ul.append(li);
-
-        }
-    
-
+        }   
     let kind = document.createElement('li');
     kind.innerHTML=`${pers}`;
     kind.classList.add('title');
@@ -90,7 +75,6 @@ function handleShow(event) {
     sh.append(ul);
     sh.classList.add('div-btn');
     btn.classList.add('none');
-    // img = btn.previousSibling;
     img.after(sh); 
     sh.addEventListener('click', (event) => {
       btn.classList.remove('none');
@@ -99,9 +83,8 @@ function handleShow(event) {
     }
   }
 }
-let container = document.querySelector('.root');
-let persons = [mihel, zosya, siguri, pupkin];
 
+let container = document.querySelector('.root');
 
 for (let person of persons) {
   let row = document.createElement('div');
